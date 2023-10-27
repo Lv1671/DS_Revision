@@ -1,0 +1,42 @@
+import java.util.*;
+
+public class Main {
+    public static Scanner scn = new Scanner(System.in);
+
+    public static String lps(String s1) {
+        if (s1.length() <= 1)
+            return s1;
+
+        String ls = ""; // Initialize outside the loop to store the longest palindrome
+
+        for (int i = 0; i < s1.length(); i++) {
+            int low = i;
+            int high = i;
+
+            // Expand around the center
+            while (low >= 0 && high < s1.length()) {
+                if (s1.charAt(low) == s1.charAt(high)) {
+                    low--;
+                    high++;
+                } else {
+                    break;
+                }
+            }
+
+            // Calculate the length of the current palindrome substring
+            String palindrome = s1.substring(low + 1, high);
+
+            // If the current palindrome is longer than the previously found one, update ls
+            if (palindrome.length() > ls.length()) {
+                ls = palindrome;
+            }
+        }
+        return ls;
+    }
+
+    public static void main(String[] args) {
+        String S1 = "ebabacceccab";
+        String ans = lps(S1);
+        System.out.println(ans);
+    }
+}
